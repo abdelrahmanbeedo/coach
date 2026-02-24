@@ -18,7 +18,7 @@ app.get('/api/health', (req, res) => {
 // Import Routes
 const userRoutes = require('./routes/userRoutes');
 const workoutRoutes = require('./routes/workoutRoutes');
-const macroRoutes = require('./routes/macroRoutes');
+const macroRoutes = require('./routes/MacroRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const exerciseRoutes = require('./routes/exerciseRoutes');
 const templateRoutes = require('./routes/templateRoutes');
