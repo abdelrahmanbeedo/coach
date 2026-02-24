@@ -212,9 +212,10 @@
 
 /* Dashboard */
 .dashboard {
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100%;
   background: transparent;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard-header {
@@ -291,7 +292,11 @@
   padding: 24px 16px;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
   padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Cards – rounded, elevated surface */
@@ -954,26 +959,73 @@
   .auth-card {
     padding: 24px 20px;
     margin: 12px;
+    border-radius: var(--radius-md);
   }
 
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-    padding: 16px 20px;
+    padding: 16px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.2rem;
   }
 
   .dashboard-tabs {
     padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .dashboard-tabs button {
-    padding: 10px 16px;
-    font-size: 14px;
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .tab-content {
-    padding: 20px 16px;
+    padding: 16px 12px;
+    /* Ensure safe-area-inset is applied */
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  .exercise-library,
+  .template-list,
+  .template-form,
+  .assigned-workouts,
+  .create-workout,
+  .workout-detail,
+  .macro-tracker,
+  .workout-management,
+  .client-management,
+  .assigned-macros,
+  .profile-tab {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .exercise-library h2,
+  .template-list h2,
+  .template-form h2,
+  .assigned-workouts h2,
+  .create-workout h2,
+  .workout-list h2,
+  .workout-management h2,
+  .assigned-macros h2,
+  .profile-tab h2 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
   }
 
   .exercise-grid {
@@ -1005,6 +1057,24 @@
   .meal-actions {
     width: 100%;
     justify-content: flex-end;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .inline-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .inline-form input {
+    width: 100%;
   }
 }
 
