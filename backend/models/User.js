@@ -24,6 +24,11 @@ const UserSchema = new mongoose.Schema({
     enum: ['coach', 'client'],
     default: 'client',
   },
+  // Profile fields
+  weight: { type: Number },
+  height: { type: Number },
+  avatarUrl: { type: String },
+  bio: { type: String },
   createdAt: {
     type: Date,
     default: Date.now,

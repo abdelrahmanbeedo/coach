@@ -5,6 +5,7 @@ import TemplateList from './TemplateList';
 import TemplateForm from './TemplateForm';
 import ClientManagement from './ClientManagement';
 import AssignedWorkouts from './AssignedWorkouts';
+import AssignedMacros from './AssignedMacros';
 
 export default function CoachDashboard() {
   const [activeTab, setActiveTab] = useState('exercises');
@@ -67,6 +68,12 @@ export default function CoachDashboard() {
         >
           Assigned Workouts
         </button>
+        <button
+          className={activeTab === 'macros' ? 'active' : ''}
+          onClick={() => setActiveTab('macros')}
+        >
+          Assigned Macros
+        </button>
       </div>
 
       <div className="tab-content">
@@ -84,6 +91,7 @@ export default function CoachDashboard() {
         )}
         {activeTab === 'clients' && <ClientManagement onClientsChange={loadClients} />}
         {activeTab === 'assigned' && <AssignedWorkouts clients={clients} />}
+        {activeTab === 'macros' && <AssignedMacros clients={clients} />}
       </div>
     </div>
   );

@@ -100,4 +100,20 @@ res.json(user);
 res.status(500).json({ message: err.message });
 }
 });
+
+// Update current user's profile
+router.put('/me', authMiddleware, async (req, res) => {
+  try {
+    const updates = {};
+    const allowed = ['username', 'bio', 'weight', 'height', 'avatarUrl'];
+    allowed.forEach((k) => {
+      if (Object.prototype.hasOwnProperty.call(req.body, k)) updates[k] = req.body[k];
+    });
+
+    const user = await User.findByIdAndUpdate(req.user.userId, updates, { new: true }).select('-password');
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 module.exports = router;
