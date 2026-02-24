@@ -7,9 +7,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log('MongoDB connection error:', err));
+const mongoUri = process.env.MONGO_URI;
+if (!mongoUri) {
+  console.error('MONGO_URI environment variable is not set. Set it and restart the server.');
+  process.exit(1);
+}
+
+mongoose.set('strictQuery', false);
+mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 30000 })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
+
+mongoose.connection.on('disconnected', () => {
+  console.warn('MongoDB disconnected');
+});
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error (event):', err);
+});
 // Health check – confirms this server has the latest routes (open in browser: http://localhost:5000/api/health)
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, routes: ['exercises', 'templates', 'workouts', 'clients', 'users'] });
